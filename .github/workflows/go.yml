@@ -26,3 +26,37 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+
+name: Generate CycloneDX SBOM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-sbom:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22' # Or your desired Go version
+
+    - name: Install cyclonedx-gomod
+      run: |
+        go install github.com/CycloneDX/cyclonedx-gomod/cmd/cyclonedx-gomod@latest
+
+    - name: Generate CycloneDX SBOM
+      run: |
+        cyclonedx-gomod mod -output sbom.json
+
+    - name: Upload SBOM artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: sbom
+        path: sbom.json
