@@ -28,26 +28,27 @@ jobs:
       run: |
         go install github.com/CycloneDX/cyclonedx-gomod/cmd/cyclonedx-gomod@latest
 
-    - name: Install CycloneDX CLI
-      run: |
-              CYCLONEDXCLI_LATEST_URL=`curl -s https://api.github.com/repos/CycloneDX/cyclonedx-cli/releases/latest | jq -r '.assets[] | select(.name | contains ("-linux-x64")) | .browser_download_url' | grep -v md5`
-              mkdir -p /opt/cyclonedx-cli
-              wget -q -O /opt/cyclonedx-cli/cyclonedx-cli ${CYCLONEDXCLI_LATEST_URL}
-              chmod +x /opt/cyclonedx-cli/cyclonedx-cli
-              ln -s /opt/cyclonedx-cli/cyclonedx-cli /usr/local/bin/cyclonedx-cli
-              cyclonedx-cli -h
+    - name: Install Cosign
+      uses: sigstore/cosign-installer@4.0.0
+      with:
+        cosign-release: 'v3.0.2'
         
     - name: Generate CycloneDX SBOM
       run: |
-        cyclonedx-gomod mod -output sbom_uns.xml
+        cyclonedx-gomod mod -output sbom.json
 
-    - name: Sign SBOM File with CycloneDX CLI 
+    - name: Sign SBOM File with Cosign
       run: |
-        cyclonedx-cli keygen --private-key-file private.key --public-key-file public.key
-        cyclonedx-cli sign bom sbom_uns.xml --key-file private.key
+        cosign sign-blob sbom.json
         
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v4
       with:
         name: sbom
-        path: sbom_uns.xml
+        path: sbom.json
+        
+        name: Raw signature
+        path: sbom.json.sig
+
+        name: Certificare
+        path: sbom.json.crt
