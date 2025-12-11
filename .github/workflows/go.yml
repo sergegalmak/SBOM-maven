@@ -41,7 +41,7 @@ jobs:
          
     - name: Cosign (Keyless)
       run: |
-         cosign sign-blob \
+         cosign sign-blob --yes \
           --output-signature sbom.json.sig \
           --output-certificate sbom.json.crt \
           sbom.json
