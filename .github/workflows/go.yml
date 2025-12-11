@@ -44,7 +44,7 @@ jobs:
          cosign sign-blob --yes \
           --output-signature sbom1.json.sig \
           --output-certificate sbom1.json.crt \
-          sbom.json
+          sbom1.json
 
              
     - name: Upload SBOM artifact
