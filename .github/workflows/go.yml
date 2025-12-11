@@ -46,7 +46,15 @@ jobs:
       with:
         name: sbom
         path: sbom.json
+
+    - name: Upload Signature
+      uses: actions/upload-artifact@v4
+      with:
         name: Raw signature
         path: sbom.json.sig
+
+    - name: Upload Certificate
+      uses: actions/upload-artifact@v4
+      with:
         name: Certificare
         path: sbom.json.crt
