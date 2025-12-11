@@ -40,11 +40,11 @@ jobs:
       uses: sigstore/cosign-installer@v3
          
     - name: Cosign (Keyless)
-        run: |
-          cosign sign-blob \
-            --output-signature sbom.json.sig \
-            --output-certificate sbom.json.crt \
-            sbom.json
+      run: |
+         cosign sign-blob \
+          --output-signature sbom.json.sig \
+          --output-certificate sbom.json.crt \
+          sbom.json
 
              
     - name: Upload SBOM artifact
