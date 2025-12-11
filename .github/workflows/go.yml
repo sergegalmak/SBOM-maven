@@ -37,7 +37,7 @@ jobs:
         cyclonedx-gomod mod -output sbom.json
 
     - name: Install Cosign
-      uses: sigstore/cosign-installer@v4
+      uses: sigstore/cosign-installer@v3
          
     - name: Cosign (Keyless)
       run: |
