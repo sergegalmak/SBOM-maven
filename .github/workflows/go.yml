@@ -23,10 +23,19 @@ jobs:
       run: |
         go install github.com/CycloneDX/cyclonedx-gomod/cmd/cyclonedx-gomod@latest
 
+    - name: Install CycloneDX CLI
+      run: |
+        go install github.com/CycloneDX/cyclonedx-cli/cmd/cyclonedx-cli@latest
+        
     - name: Generate CycloneDX SBOM
       run: |
         cyclonedx-gomod mod -output sbom_uns.json
 
+    - name: Sign SBOM File with CycloneDX CLI 
+      run: |
+        cyclonedx keygen --private-key-file private.key --public-key-file public.key
+        cyclonedx sign bom sbom_uns.json --key-file private.key
+        
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v4
       with:
