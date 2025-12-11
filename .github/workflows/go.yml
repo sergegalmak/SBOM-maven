@@ -25,10 +25,10 @@ jobs:
 
     - name: Generate CycloneDX SBOM
       run: |
-        cyclonedx-gomod mod -output sbom.json
+        cyclonedx-gomod mod -output sbom_uns.json
 
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v4
       with:
         name: sbom
-        path: sbom.json
+        path: sbom_uns.json
