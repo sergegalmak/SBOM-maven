@@ -43,8 +43,8 @@ jobs:
 
     - name: Sign SBOM File with CycloneDX CLI 
       run: |
-        cyclonedx keygen --private-key-file private.key --public-key-file public.key
-        cyclonedx sign bom sbom_uns.json --key-file private.key
+        cyclonedx-cli keygen --private-key-file private.key --public-key-file public.key
+        cyclonedx-cli sign bom sbom_uns.json --key-file private.key
         
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v4
