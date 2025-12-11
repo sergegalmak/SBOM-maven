@@ -24,10 +24,6 @@ jobs:
       with:
         node-version: '20'
 
-    - name: npm install, build, and test
-      run: |
-        npm install
-
     - name: Install cyclonedx-gomod
       run: |
         go install github.com/CycloneDX/cyclonedx-gomod/cmd/cyclonedx-gomod@latest
