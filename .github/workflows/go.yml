@@ -39,15 +39,15 @@ jobs:
         
     - name: Generate CycloneDX SBOM
       run: |
-        cyclonedx-gomod mod -output sbom_uns.json
+        cyclonedx-gomod mod -output sbom_uns.xml
 
     - name: Sign SBOM File with CycloneDX CLI 
       run: |
         cyclonedx-cli keygen --private-key-file private.key --public-key-file public.key
-        cyclonedx-cli sign bom sbom_uns.json --key-file private.key
+        cyclonedx-cli sign bom sbom_uns.xml --key-file private.key
         
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v4
       with:
         name: sbom
-        path: sbom_uns.json
+        path: sbom_uns.xml
