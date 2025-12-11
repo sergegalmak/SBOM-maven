@@ -27,17 +27,13 @@ jobs:
     - name: Install cyclonedx-gomod
       run: |
         go install github.com/CycloneDX/cyclonedx-gomod/cmd/cyclonedx-gomod@latest
-
-    - name: Install Cosign
-      uses: sigstore/cosign-installer@4.0.0
-      with:
-        cosign-release: 'v3.0.2'
-        
+       
     - name: Generate CycloneDX SBOM
       run: |
         cyclonedx-gomod mod -output sbom.json
 
-    - name: Sign SBOM File with Cosign
+    - name: Install Cosign
+      uses: sigstore/cosign-installer@3.0.3
       run: |
         cosign sign-blob sbom.json
         
