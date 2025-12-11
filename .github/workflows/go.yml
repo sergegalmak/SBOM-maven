@@ -19,13 +19,18 @@ jobs:
       with:
         go-version: '1.23' 
 
+    - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
     - name: Install cyclonedx-gomod
       run: |
         go install github.com/CycloneDX/cyclonedx-gomod/cmd/cyclonedx-gomod@latest
 
     - name: Install CycloneDX CLI
       run: |
-        go install github.com/CycloneDX/cyclonedx-cli@latest
+        run: npm install -g @cyclonedx/cyclonedx-cli
         
     - name: Generate CycloneDX SBOM
       run: |
