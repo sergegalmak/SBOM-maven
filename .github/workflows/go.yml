@@ -30,7 +30,7 @@ jobs:
 
     - name: Install CycloneDX CLI
       run: |
-        run: sudo npm install -g @cyclonedx/bom
+        run: npm install -g @cyclonedx/bom
         
     - name: Generate CycloneDX SBOM
       run: |
