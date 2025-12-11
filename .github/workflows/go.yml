@@ -30,7 +30,7 @@ jobs:
 
     - name: Install CycloneDX CLI
       run: |
-        run: CYCLONEDXCLI_LATEST_URL=`curl -s https://api.github.com/repos/CycloneDX/cyclonedx-cli/releases/latest | jq -r '.assets[] | select(.name | contains ("-linux-x64")) | .browser_download_url' | grep -v md5`
+              CYCLONEDXCLI_LATEST_URL=`curl -s https://api.github.com/repos/CycloneDX/cyclonedx-cli/releases/latest | jq -r '.assets[] | select(.name | contains ("-linux-x64")) | .browser_download_url' | grep -v md5`
               mkdir -p /opt/cyclonedx-cli
               wget -q -O /opt/cyclonedx-cli/cyclonedx-cli ${CYCLONEDXCLI_LATEST_URL}
               chmod +x /opt/cyclonedx-cli/cyclonedx-cli
