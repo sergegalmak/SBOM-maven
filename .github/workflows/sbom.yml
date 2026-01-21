@@ -24,7 +24,7 @@ jobs:
         go install github.com/CycloneDX/cyclonedx-gomod/cmd/cyclonedx-gomod@latest
     - name: Generate CycloneDX SBOM
       run: |
-        cyclonedx-gomod mod -output sbom.json
+        cyclonedx-gomod mod -json -output sbom.json
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v4
       with:
