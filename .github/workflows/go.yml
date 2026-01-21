@@ -34,7 +34,7 @@ jobs:
        
     - name: Generate CycloneDX SBOM
       run: |
-        cyclonedx-gomod mod -output sbom1.json
+        cyclonedx-gomod mod -json -output sbom1.json
 
     - name: Install Cosign
       uses: sigstore/cosign-installer@v3
